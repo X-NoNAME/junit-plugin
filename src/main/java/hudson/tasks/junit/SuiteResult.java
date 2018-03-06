@@ -261,6 +261,14 @@ public final class SuiteResult implements Serializable {
                 classname = suite.attributeValue("name");
             }
 
+            //for phpunit reports (phpunit --log-junit report.xml ...)
+            if (classname == null || classname.trim().isEmpty()) {
+                classname = e.attributeValue("class");
+            }
+            if (classname == null || classname.trim().isEmpty()) {
+                classname = "Unknown";
+            }
+
             // https://issues.jenkins-ci.org/browse/JENKINS-1233 and
             // http://www.nabble.com/difference-in-junit-publisher-and-ant-junitreport-tf4308604.html#a12265700
             // are at odds with each other --- when both are present,
