@@ -266,8 +266,14 @@ public final class SuiteResult implements Serializable {
                 classname = e.attributeValue("class");
             }
             if (classname == null || classname.trim().isEmpty()) {
-                classname = "Unknown";
+                classname = "UnknownClassName";
             }
+
+            //just for grouping tests by method name
+            String[] classArray = classname.split("\\\\");
+            classname = classArray[classArray.length-1]; //last element
+            classname = classname.replaceAll("_",".");
+            classname = classname  + "." + e.attributeValue("name").split(" ")[0];
 
             // https://issues.jenkins-ci.org/browse/JENKINS-1233 and
             // http://www.nabble.com/difference-in-junit-publisher-and-ant-junitreport-tf4308604.html#a12265700
